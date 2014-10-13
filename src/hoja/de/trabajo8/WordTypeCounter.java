@@ -9,18 +9,22 @@ Descripci�n: Programa principal.
 
 package hoja8;
 import java.io.*;
+import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
 
 class WordTypeCounter {
 	public static void main(String[] args) throws Exception
 	{
-		if(args.length > 1)
+		if(5 > 1)
 		{
 			// Declaraci�n e inicializaci�n de variables.
+                        int implementacion = 0;
 			// el primer parametro indica el nombre del archivo con las definiciones de las palabras
-			File wordFile = new File(args[0]);
+			File wordFile = new File("words.txt");
 			
 			// el segundo parametro indica el nombre del archivo que tiene el texto a analizar
-			File textFile = new File(args[1]);
+			File textFile = new File("text.txt");
 			
 			// el tercer parametro sirve para seleccionar la implementacion que se usara para
 			// guardar el conjunto de palabras. Use el valor 1 para indicar que se empleara
@@ -30,7 +34,36 @@ class WordTypeCounter {
 			//  3 Splay Tree
 			//  4 Hash Table
 			//  5 TreeMap (de java collection framework)
-			int implementacion = Integer.parseInt(args[2]);
+                        String menu = "1. SimpleSet\n2. Black Red Tree\n3. SplayTree\n4. HashTable\n5. TreeMap\n6. Salir";
+                        Scanner scan = new Scanner(System.in);
+                        int opc = 0;
+                                                
+                        while (opc != 6){
+                            System.out.println(menu + "\nOpción: ");
+                            opc = scan.nextInt();
+                            switch (opc){
+                                case 1:
+                                    implementacion = Integer.parseInt("1");
+                                    break;
+                                case 2: //BubbleSort
+                                     implementacion = Integer.parseInt("2");
+                                    break;
+                                case 3:
+                                     implementacion = Integer.parseInt("3");
+                                    break;
+                                case 4:
+                                     implementacion = Integer.parseInt("4");
+                                    break;
+                                case 5:
+                                     implementacion = Integer.parseInt("5");
+                                    break;                                
+                                    
+                            }
+                            
+                        if(opc != 6){
+                            
+                        
+			
 			
 			BufferedReader wordreader;
 			BufferedReader textreader;
@@ -44,7 +77,7 @@ class WordTypeCounter {
 			long starttime;
 			long endtime;
 			
-			// Verificar que los dos par�metros que se pasaron sean archivos que existen
+			// Verificar que los dos parámetros que se pasaron sean archivos que existen
 			if(wordFile.isFile() && textFile.isFile()) {
 				// Leer archivos
 				try
@@ -73,7 +106,7 @@ class WordTypeCounter {
 				line = wordreader.readLine();
 				while(line!=null)
 				{
-					wordParts = line.split("\\.");  // lo que esta entre comillas es una expresi�n regular.
+					wordParts = line.split("\\.");  // lo que esta entre comillas es una expresión regular.
 					if(wordParts.length == 2)
 					{
 						words.add(new Word(wordParts[0].trim(),wordParts[1].trim()));
@@ -94,13 +127,13 @@ class WordTypeCounter {
 				
 				while(line!=null)
 				{
-					// Separar todas las palabras en la l�nea.
-					textParts = line.split("[^\\w-]+"); // utilizar de separador cualquier caracter que no sea una letra, n�mero o gui�n.
+					// Separar todas las palabras en la línea.
+					textParts = line.split("[^\\w-]+"); // utilizar de separador cualquier caracter que no sea una letra, número o guión.
 					
 					// Revisar cada palabra y verificar de que tipo es. 
 					for(int i=0;i<textParts.length;i++)
 					{
-						lookupword .setWord(textParts[i].trim().toLowerCase());
+						lookupword.setWord(textParts[i].trim().toLowerCase());
 						currentword = words.get(lookupword);
 						if(currentword != null)
 						{
@@ -123,7 +156,7 @@ class WordTypeCounter {
 				endtime = System.currentTimeMillis();
 				System.out.println("Texto analizado en " + (endtime-starttime) + " ms.");
 				
-				// Presentar estad�sticas
+				// Presentar estadísticas
 				System.out.println("El texto tiene:");
 				System.out.println(verbs + " verbos");
 				System.out.println(nouns + " sustantivos");
@@ -136,10 +169,8 @@ class WordTypeCounter {
 			{
 				System.out.println("No encuentro los archivos :'( ");
 			}
-		}
-		else
-		{
-			System.out.println("Faltan Parametros.");
-		}
-	}
+                 }
+               }
+            }   
+      }
 }

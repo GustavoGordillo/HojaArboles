@@ -142,17 +142,18 @@ public class SplayTre implements WordSet {
         return x;
     }
 
-	public long toAscii(String s){
-        StringBuilder sb = new StringBuilder();
-        String ascString = null;
-        long asciiInt;
-                for (int i = 0; i < s.length(); i++){
-                    sb.append((int)s.charAt(i));
-                    char c = s.charAt(i);
-                }
-                ascString = sb.toString();
-                asciiInt = Long.parseLong(ascString);
-                return asciiInt;
+	public int toAscii(String s){
+        
+        int total=0;
+        int ascii;
+        int largo=s.length();
+        for(int i=0;i< largo;i++)
+        {
+        ascii = s.toCharArray()[i];
+        total=total+ascii;
+        }
+        return total;
+
     }
 
 }

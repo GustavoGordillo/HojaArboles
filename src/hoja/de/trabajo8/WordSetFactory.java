@@ -8,7 +8,7 @@ Descripci�n: WordSetFactory. Clase  utilizada para instanciar los diferentes t
 */
 package hoja8;
 
-class WordSetFactory {
+class WordSetFactory implements WordSet{
 	
 	// Metodo que genera un objeto que implementa WordSet
 	// parametro tipo: 1 = SimpleSet
@@ -22,14 +22,39 @@ class WordSetFactory {
 	    if (tipo == 1)
 		    return new SimpleSet();
 		else
-		    // aqui se regresara el set empleando sus implementaciones:
+                
+                // aqui se regresara el set empleando sus implementaciones:
 			// if tipo == 2 cree una instancia para un Wordset implementao con Red Black Tree
 			// if tipo == 3 cree una instancia para un Wordset implementado con Splay Tree
 			// if tipo == 4 cree una instancia para un Wordset implementado con Hash table
 			// if tipo == 5 cree una instancia para un Wordset implementado con TreeMap
+                
+                    if(tipo == 2){
+                        return new Blackredtree(); // modificarlo para que regrese la implementacion seleccionada
+                    }
+                    if(tipo == 3){
+                        return new SplayTre(); // modificarlo para que regrese la implementacion seleccionada
+                    }
+                    if(tipo == 4){
+                        return new hashtable(); // modificarlo para que regrese la implementacion seleccionada
+                    }
+                    if(tipo == 5){
+                        return new MapadeArbol(); // modificarlo para que regrese la implementacion seleccionada
+                    }
+		    
 			
-			return null; // modificarlo para que regrese la implementacion seleccionada
+		return null; // modificarlo para que regrese la implementacion seleccionada	
 	}
+
+    @Override
+    public void add(Word wordObject) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Word get(Word word) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 	
 	
 }
