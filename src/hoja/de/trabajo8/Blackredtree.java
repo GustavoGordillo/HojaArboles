@@ -1,0 +1,166 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package hoja8;
+
+/**
+ *
+ * @author Jose
+ */
+public class Blackredtree implements WordSet{
+    
+private Nodo2 root;   // root of the BST
+public boolean color;
+    public Word get(Word word) {
+        root = splay(root, word.getWord());
+        long valor = toAscii(word.getWord());
+	long valor1 = toAscii(root.getValor());
+        long cmp = valor1-valor;
+        if (cmp == 0) 
+        {
+            return word;
+        }
+        else          return null;
+    }    
+	
+    public void add (Word wordObject) {
+        // splay key to root
+        if(color==true)
+        {
+        color=false;
+        }
+        if(color==false)
+        {
+        color=true;
+        }
+        if (root == null) {
+            root = new Nodo2(wordObject.getWord(),wordObject.getType(),color);
+            return;
+        }
+        
+        root = splay(root, wordObject.getWord());
+
+		long valor = toAscii(wordObject.getWord());
+		long valor1 = toAscii(root.getValor());
+        long cmp = valor1-valor;
+        
+        // Insert new node at root
+        if (cmp < 0) {
+            Nodo2 n = new Nodo2(wordObject.getWord(),wordObject.getType(),color);
+            n.izq = root.izq;
+            n.der = root;
+            root.izq = null;
+            root = n;
+        }
+
+        // Insert new node at root
+        else if (cmp > 0) {
+            Nodo2 n = new Nodo2(wordObject.getWord(),wordObject.getType(),color);
+            n.der = root.der;
+            n.izq = root;
+            root.der = null;
+            root = n;
+        }
+
+        // It was a duplicate key. Simply replace the palabra
+        else if (cmp == 0) {
+            root.palabra = root.palabra;
+        }
+
+    }
+    
+    
+   
+    private Nodo2 splay(Nodo2 h, String word) {
+        if (h == null) return null;
+
+		long valor = toAscii(word);
+		long valor1 = toAscii(h.getValor());
+        long cmp1 = valor1-valor;
+		
+        if (cmp1 < 0) {
+            // key not in tree, so we're done
+            if (h.izq == null) {
+                return h;
+            }
+            valor = toAscii(word);
+		valor1 = toAscii(h.izq.getValor());
+		long cmp2 = valor1-valor;
+			
+            if (cmp2 < 0) {
+                h.izq.izq = splay(h.izq.izq, word);
+                h = rotateRight(h);
+            }
+            else if (cmp2 > 0) {
+                h.izq.der = splay(h.izq.der, word);
+                if (h.izq.der != null)
+                    h.izq = rotateLeft(h.izq);
+            }
+            
+            if (h.izq == null) return h;
+            else                return rotateRight(h);
+        }
+
+        else if (cmp1 > 0) { 
+            // key not in tree, so we're done
+            if (h.der == null) {
+                return h;
+            }
+
+			 valor = toAscii(word);
+			 valor1 = toAscii(h.der.getValor());
+			long cmp2 = valor1-valor;
+			
+            if (cmp2 < 0) {
+                h.der.izq  = splay(h.der.izq, word);
+                if (h.der.izq != null)
+                    h.izq = rotateRight(h.der);
+            }
+            else if (cmp2 > 0) {
+                h.der.der = splay(h.der.der, word);
+                h = rotateLeft(h);
+            }
+            
+            if (h.der == null) return h;
+            else                 return rotateLeft(h);
+        }
+
+        else return h;
+    }
+
+
+
+    
+    // right rotate
+    private Nodo2 rotateRight(Nodo2 h) {
+        Nodo2 x = h.izq;
+        h.izq = x.der;
+        x.der = h;
+        return x;
+    }
+
+    // left rotate
+    private Nodo2 rotateLeft(Nodo2 h) {
+        Nodo2 x = h.der;
+        h.der = x.izq;
+        x.izq = h;
+        return x;
+    }
+
+	public long toAscii(String s){
+        StringBuilder sb = new StringBuilder();
+        String ascString = null;
+        long asciiInt;
+                for (int i = 0; i < s.length(); i++){
+                    sb.append((int)s.charAt(i));
+                    char c = s.charAt(i);
+                }
+                ascString = sb.toString();
+                asciiInt = Long.parseLong(ascString);
+                return asciiInt;
+    }
+
+}
